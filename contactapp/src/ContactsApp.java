@@ -1,3 +1,5 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +43,7 @@ public class ContactsApp {
                         if (model.checkContactBooknameExists(contactBookName))
                             System.out.println("contactbook name is already exists please give other name");
                         else {
+                            model.createContactBook(contactBookName);
                             while (ch2 != 6) {
                                 System.out.println("press 1 to add contact");
                                 System.out.println("press 2 to edit contact");
@@ -92,31 +95,172 @@ public class ContactsApp {
                                         break;
                                     case 2:
                                         System.out.println("editing contact");
-                                        System.out.println("enter the contactbookname you are going to edit");
-                                        contactBookName=sc2.nextLine();
-                                        if(!model.checkContactBooknameExists(contactBookName))
-                                        {
-                                            System.out.println("contactBookname does not exist first create contactbook");
+                                        System.out.println("enter the contact name you are going to edit");
+                                        contactName = sc2.nextLine();
+                                        if (!model.checkContactNameExists(contactName,
+                                                contactBookName)) {
+                                            System.out.println("contact name does not exist");
                                             break;
-                                        }else {
-                                            System.out.println("enter the contact name you are going to edit");
-                                            contactName = sc2.nextLine();
-                                            if (!model.checkContactNameExists(contactName,
-                                                    contactBookName)) {
-                                                System.out.println("contact name does not exist");
-                                                break;
-                                            } else {
+                                        } else {
 
-                                                int ch = 0;
-                                                while (ch != 3) {
-                                                    System.out.println("press 1 to edit or remove contact");
-                                                    System.out.println("press 2 to add email or phone no");
-                                                    System.out.println("enter your choice");
-                                                    ch = sc1.nextInt();
-                                                    switch (ch) {
-                                                        case 1:
+                                            int ch = 0;
+                                            while (ch != 3)
 
-                                                    }
+                                            {
+                                                System.out.println("press 1 to edit or remove contact");
+                                                System.out.println("press 2 to add email or phone no");
+                                                System.out.println("enter your choice");
+                                                ch = sc1.nextInt();
+                                                switch (ch) {
+                                                    case 1:
+                                                        System.out.println("editing or removing contact");
+                                                        int c=0;
+                                                        while (c!=3){
+                                                            System.out.println("press 1 edit contact");
+                                                            System.out.println("press 2 remove contact");
+                                                            System.out.println("press 3 to go back");
+                                                            System.out.println("entr your choice");
+                                                            c=sc1.nextInt();
+                                                            switch(c)
+                                                            {
+                                                                case 1:
+                                                                    System.out.println("editing contact");
+                                                                    int ch3=0;
+                                                                    while(ch3!=5)
+                                                                    {
+                                                                        bean=model.getOneContact(contactName,contactBookName);
+                                                                        System.out.println(bean);
+                                                                        System.out.println("press 1 to change address");
+                                                                        System.out.println("press 2 to change tags");
+                                                                        System.out.println("press 3 to change petname");
+                                                                        System.out.println("press 4 to change dob");
+                                                                        System.out.println("press 5 to exit");
+                                                                        System.out.println("enterr your choice");
+                                                                        ch3=sc1.nextInt();
+                                                                        switch(ch3)
+                                                                        {
+                                                                            case 1:
+                                                                                System.out.println("editing contact address");
+                                                                                bean=model.getOneContact(contactName,contactBookName);
+                                                                                model.removeContact(contactName,contactBookName);
+
+                                                                                System.out.println("enter the new adress");
+                                                                                bean.setAddress(sc2.nextLine());
+                                                                                model.addContact(bean,contactBookName);
+                                                                                break;
+                                                                            case 2:
+                                                                                System.out.println("editing contact tags");
+                                                                                bean=model.getOneContact(contactName,contactBookName);
+                                                                                model.removeContact(contactName,contactBookName);
+                                                                                System.out.println("enter the new tags(comma seperated)");
+                                                                                bean.setTags(sc2.nextLine());
+                                                                                model.addContact(bean,contactBookName);
+                                                                                break;
+                                                                            case 3:
+                                                                                System.out.println("editing petname");
+                                                                                bean=model.getOneContact(contactName,contactBookName);
+                                                                                model.removeContact(contactName,contactBookName);
+                                                                                System.out.println("enter new petname");
+                                                                                bean.setPetName(sc2.nextLine());
+                                                                                model.addContact(bean,contactBookName);
+                                                                                break;
+                                                                            case 4:
+                                                                                System.out.println("editing dob");
+                                                                                bean=model.getOneContact(contactName,contactBookName);
+                                                                                model.removeContact(contactName,contactBookName);
+                                                                                System.out.println("enter the new date of birth");
+                                                                                String r=sc2.nextLine();
+                                                                                SimpleDateFormat ad=new SimpleDateFormat("dd/MM/yyyy");
+                                                                                bean.setDob(ad.parse(r));
+                                                                                model.addContact(bean,contactBookName);
+                                                                                break;
+                                                                            case 5:
+                                                                                System.out.println("going back");
+                                                                                break;
+
+
+                                                                            default:
+                                                                                throw new IllegalStateException("Unexpected value: " + ch3);
+                                                                        }
+
+
+                                                                    }
+                                                                    break;
+                                                                case 2:
+                                                                    System.out.println("removing contact");
+                                                                    model.removeContact(contactName,contactBookName);
+                                                                    break;
+                                                                    
+                                                            }
+                                                        }
+                                                    case 2:
+                                                        System.out.println("adding email or phone no");
+                                                        int ch4=0;
+                                                        while (ch4!=3)
+                                                        {
+                                                            System.out.println("press 1 to add email");
+                                                            System.out.println("press 2 to add phone no");
+                                                            System.out.println("press 3 to exit");
+                                                            System.out.println("enter your choice");
+                                                            ch4=sc1.nextInt();
+                                                            switch(ch4)
+                                                            {
+                                                                case 1:
+                                                                    System.out.println("adding email");
+                                                                    bean=model.getOneContact(contactName,contactBookName);
+                                                                    model.removeContact(contactName,contactBookName);
+                                                                    List<String> temp=new ArrayList<String>();
+                                                                    temp=bean.getEmail();
+                                                                    System.out.println("enter number of emails you are going to add");
+                                                                    int count3 = sc1.nextInt();
+                                                                    while (count3 > 0) {
+                                                                        System.out.println("enter the email address");
+                                                                        String mail = sc2.nextLine();
+                                                                        temp.add(mail);
+                                                                        count3--;
+                                                                    }
+                                                                    bean.setEmail(temp);
+                                                                    model.addContact(bean,contactBookName);
+                                                                    break;
+                                                                case 2:
+                                                                    System.out.println("adding Phone number");
+                                                                    bean=model.getOneContact(contactName,contactBookName);
+                                                                    model.removeContact(contactName,contactBookName);
+                                                                    List<String> temp1=new ArrayList<String>();
+                                                                    temp=bean.getPhoneNo();
+                                                                    System.out.println("enter number of phone numbers you are going to add");
+                                                                    int count4 = sc1.nextInt();
+                                                                    while (count4 > 0) {
+                                                                        System.out.println("enter the phone number");
+                                                                        String mail = sc2.nextLine();
+                                                                        temp.add(mail);
+                                                                        count4--;
+                                                                    }
+                                                                    bean.setPhoneNo(temp);
+                                                                    model.addContact(bean,contactBookName);
+                                                                    break;
+
+
+
+
+
+                                                            }
+
+
+
+                                                        }
+                                                        break;
+                                                    case 3:
+                                                        System.out.println("removing contact");
+                                                        System.out.println("enter the contact name to remove");
+                                                        contactName=sc2.nextLine();
+                                                        if(model.checkContactNameExists(contactName,contactBookName))
+                                                        model.removeContact(contactName,contactBookName);
+                                                        else
+                                                            System.out.println("the you have given is not in the book first add the contact");
+                                                        break;
+                                                    case 4:
+
                                                 }
                                             }
                                         }

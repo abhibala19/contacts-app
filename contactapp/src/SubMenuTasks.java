@@ -15,8 +15,6 @@ public class SubMenuTasks {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date dob1 = sdf.parse(d);
         String dob = sdf.format(dob1);
-
-        System.out.println(dob);
         System.out.println("enter tags for the contact(comma seperated)");
         String tags = sc2.nextLine();
         System.out.println("enter the petname");
@@ -69,9 +67,8 @@ public class SubMenuTasks {
                     List<String> contacts = model.getAllContacts(contactBookName);
                     for(String d:contacts)
                     {
-                        System.out.print(d);
+                        System.out.println(d);
                     }
-                    System.out.println();
                     System.out.println("editing contact");
                     System.out.println("enter the contact name you are going to edit");
                     String contactName = sc2.nextLine();

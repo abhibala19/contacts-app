@@ -64,7 +64,6 @@ public class ContactModel {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 List<String> mail = new ArrayList<String>();
                 List<String> phNo = new ArrayList<String>();
-                System.out.println(a.length);
                 String f = a[5];
                 String g = a[6];
 
@@ -183,7 +182,7 @@ public class ContactModel {
 
     public List<String> loadContactBook() {
         List<String> list = new ArrayList<>();
-        File file = new File("/home/balaji/balaji/abhi/abhijava/contacts-app/");
+        File file = new File(".");
         if (file.exists() && file.isDirectory()) {
             File[] files = file.listFiles();
             for (File g : files) {
@@ -207,7 +206,6 @@ public class ContactModel {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 List<String> mail = new ArrayList<String>();
                 List<String> phNo = new ArrayList<String>();
-                System.out.println(a.length);
                 String f = a[5];
                 String g = a[6];
 

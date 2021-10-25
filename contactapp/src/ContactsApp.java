@@ -42,6 +42,7 @@ public class ContactsApp {
                             model.createContactBook(contactBookName);
                             SubMenuTasks.allSubMenuTasks(contactBookName);
                         }
+                        break;
                     case 2:
                         System.out.println("loading contacts");
                         List<String> list = model.loadContactBook();

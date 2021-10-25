@@ -2,13 +2,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class ContactBean {
+public class ContactBean implements Comparable<ContactBean>{
     private String contactName;
     private String tags;
     private String address;
 
     private String petName;
-    private Date dob;
+    private String dob;
     private List<String> email;
     private  List<String> phoneNo;
 
@@ -18,8 +18,12 @@ public class ContactBean {
 
     public ContactBean() {
     }
-
-    public ContactBean(String contactName, String tags, String address, String petName, Date dob, List<String> email, List<String> phoneNo) {
+@Override
+public int compareTo(ContactBean arg0) {
+	// TODO Auto-generated method stub
+	return this.getContactName().compareTo(arg0.getContactName());
+}
+    public ContactBean(String contactName, String tags, String address, String petName, String dob, List<String> email, List<String> phoneNo) {
         this.contactName = contactName;
         this.tags = tags;
         this.address = address;
@@ -78,11 +82,11 @@ public class ContactBean {
         this.email = email;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 

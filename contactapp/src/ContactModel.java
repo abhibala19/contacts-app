@@ -11,49 +11,46 @@ public class ContactModel {
         return new File(contactBookName + ".tocall").exists();
 
     }
-public void removeContact(String contactName,String contactBookName)
-{
-    BufferedReader br=null;
-    BufferedWriter bw=null;
-    List<String> l=new ArrayList<String>();
-    try{
-        br=new BufferedReader(new FileReader(contactBookName+".tocall"));
-        String line;
-        bw=new BufferedWriter(new FileWriter(contactBookName+".tocall"));
-        while((line=br.readLine())!=null)
-        {
-            String[] a=line.split(":");
-            if(!a[0].equals(contactName))
-                l.add(line);
-        }
-        for(String s:l)
-        {
-            bw.write(s);
-            bw.newLine();
+
+    public void removeContact(String contactName, String contactBookName) {
+        BufferedReader br = null;
+        BufferedWriter bw = null;
+        List<String> l = new ArrayList<String>();
+        try {
+            br = new BufferedReader(new FileReader(contactBookName + ".tocall"));
+            String line;
+            bw = new BufferedWriter(new FileWriter(contactBookName + ".tocall"));
+            while ((line = br.readLine()) != null) {
+                String[] a = line.split(":");
+                if (!a[0].equalsIgnoreCase(contactName))
+                    l.add(line);
+            }
+            for (String s : l) {
+                bw.write(s);
+                bw.newLine();
+            }
+
+        } catch (Throwable e) {
+            e.printStackTrace();
+        } finally {
+            if (bw != null) {
+                try {
+                    bw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
-    }catch(Throwable e)
-    {
-        e.printStackTrace();
-    }finally {
-        if(bw!=null)
-        {
-            try{bw.close();}
-            catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
-        if(br!=null)
-        {
-            try{ br.close();}catch (IOException e)
-            {
-                e.printStackTrace();
-            }
-        }
     }
 
-}
     public ContactBean getOneContact(String contactName, String
             contactBookName) {
 
@@ -68,26 +65,23 @@ public void removeContact(String contactName,String contactBookName)
                 List<String> mail = new ArrayList<String>();
                 List<String> phNo = new ArrayList<String>();
                 System.out.println(a.length);
-                String f=a[5];
-                String g=a[6];
+                String f = a[5];
+                String g = a[6];
 
-                mail = ContactUtil.convertToList(f.substring(1,f.length()-1));
-                phNo = ContactUtil.convertToList(g.substring(1,g.length()-1));
+                mail = ContactUtil.convertToList(f.substring(1, f.length() - 1));
+                phNo = ContactUtil.convertToList(g.substring(1, g.length() - 1));
                 if (a[0].equals(contactName)) {
 
 
-                    contact = new ContactBean(a[0], a[1], a[2], a[3],a[4] , mail, phNo);
+                    contact = new ContactBean(a[0], a[1], a[2], a[3], a[4], mail, phNo);
 
 
                 }
             }
             return contact;
-        } 
-        catch(IOException e)
-        {
-        	e.printStackTrace();
-        }
-        finally {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
             if (br != null) {
                 try {
                     br.close();
@@ -128,6 +122,35 @@ public void removeContact(String contactName,String contactBookName)
         }
     }
 
+    public List<String> getAllContacts(String contactBookName) {
+        System.out.println("get all contacts");
+        BufferedReader br = null;
+        List<String> result = new ArrayList<>();
+        try {
+            String line;
+            br = new BufferedReader(new FileReader(contactBookName + ".tocall"));
+            line = br.readLine();
+            while (line != null) {
+                String[] a = line.split(":");
+                result.add(a[0]);
+                line = br.readLine();
+            }
+            return result;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }
+    }
+
     public String addContact(ContactBean contact, String contactBookName) {
         BufferedWriter bw = null;
         try {
@@ -152,52 +175,29 @@ public void removeContact(String contactName,String contactBookName)
             }
         }
     }
-    public int findOccurance(String word,String contactBookName)
-    {
-    	return 1;
-    	
-    }
-    public String loadContactBook(String contactBookName)
-    {
-    	BufferedReader br=null;
-        BufferedWriter bw=null;
-        List<String> l=new ArrayList<String>();
-        try{
-            br=new BufferedReader(new FileReader(contactBookName+".tocall"));
-            String line;
-            bw=new BufferedWriter(new FileWriter(contactBookName+".tocall"));
-            while((line=br.readLine())!=null)
-            {
-               bw.write(line);
-               bw.newLine();
-            }
-            return Constants.SUCCESS;
 
-        }catch(Throwable e)
-        {
-            e.printStackTrace();
-            return "error ocurred";
-        }finally {
-            if(bw!=null)
-            {
-                try{bw.close();}
-                catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
-            }
-            if(br!=null)
-            {
-                try{ br.close();}catch (IOException e)
-                {
-                    e.printStackTrace();
-                }
+    public int findOccurance(String word, String contactBookName) {
+        return 1;
+
+    }
+
+    public List<String> loadContactBook() {
+        List<String> list = new ArrayList<>();
+        File file = new File("/home/balaji/balaji/abhi/abhijava/contacts-app/");
+        if (file.exists() && file.isDirectory()) {
+            File[] files = file.listFiles();
+            for (File g : files) {
+                if(g.getName().endsWith(".tocall"))
+                list.add(g.getName());
+
             }
         }
+        return list;
     }
-    public List<ContactBean> listContacts(String contactBookName){
-    	ContactBean contact = null;
-    	List<ContactBean> list=new ArrayList<ContactBean>();
+
+    public List<ContactBean> listContacts(String contactBookName) {
+        ContactBean contact = null;
+        List<ContactBean> list = new ArrayList<ContactBean>();
         BufferedReader br = null;
         try {
             String line;
@@ -208,24 +208,21 @@ public void removeContact(String contactName,String contactBookName)
                 List<String> mail = new ArrayList<String>();
                 List<String> phNo = new ArrayList<String>();
                 System.out.println(a.length);
-                String f=a[5];
-                String g=a[6];
+                String f = a[5];
+                String g = a[6];
 
-                mail = ContactUtil.convertToList(f.substring(1,f.length()-1));
-                phNo = ContactUtil.convertToList(g.substring(1,g.length()-1));
-                    contact = new ContactBean(a[0], a[1], a[2], a[3],a[4] , mail, phNo);
-                    	list.add(contact);
+                mail = ContactUtil.convertToList(f.substring(1, f.length() - 1));
+                phNo = ContactUtil.convertToList(g.substring(1, g.length() - 1));
+                contact = new ContactBean(a[0], a[1], a[2], a[3], a[4], mail, phNo);
+                list.add(contact);
 
-                }
-            
+            }
+
             return list;
-        } 
-        catch(IOException e)
-        {
-        	e.printStackTrace();
-        	return null;
-        }
-        finally {
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        } finally {
             if (br != null) {
                 try {
                     br.close();
@@ -236,8 +233,8 @@ public void removeContact(String contactName,String contactBookName)
 
             }
 
-    	
-    }
+
+        }
     }
 
     public String createContactBook(String contactBookName) {

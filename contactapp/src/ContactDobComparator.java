@@ -7,4 +7,3 @@ public class ContactDobComparator implements Comparator<ContactBean> {
 		return o1.getDob().compareTo(o2.getDob());
 	}
 }
-}

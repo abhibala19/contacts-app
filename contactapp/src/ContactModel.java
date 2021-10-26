@@ -15,16 +15,17 @@ public class ContactModel {
     public void removeContact(String contactName, String contactBookName) {
         BufferedReader br = null;
         BufferedWriter bw = null;
-        List<String> l = new ArrayList<String>();
+        List<String> l = new ArrayList<>();
         try {
             br = new BufferedReader(new FileReader(contactBookName + ".tocall"));
             String line;
-            bw = new BufferedWriter(new FileWriter(contactBookName + ".tocall"));
             while ((line = br.readLine()) != null) {
                 String[] a = line.split(":");
                 if (!a[0].equalsIgnoreCase(contactName))
                     l.add(line);
             }
+            bw = new BufferedWriter(new FileWriter(contactBookName + ".tocall"));
+
             for (String s : l) {
                 bw.write(s);
                 bw.newLine();
@@ -33,16 +34,16 @@ public class ContactModel {
         } catch (Throwable e) {
             e.printStackTrace();
         } finally {
-            if (bw != null) {
+            if (br != null) {
                 try {
-                    bw.close();
+                    br.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
-            if (br != null) {
+            if (bw != null) {
                 try {
-                    br.close();
+                    bw.close();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

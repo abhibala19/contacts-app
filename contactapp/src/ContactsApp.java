@@ -58,6 +58,32 @@ public class ContactsApp {
 
                         }
                         SubMenuTasks.allSubMenuTasks(contactBookName);
+                        break;
+                    case 3:
+                    	System.out.println("Searching contact");
+                    	List<String> l1= model.loadContactBook();
+                    	for(String h:l1)
+                    	{
+                    		System.out.println(h);
+                    	}
+                    	System.out.println("enter the contactBookname to list");
+                    	contactBookName=sc2.nextLine();
+                    	System.out.println("enter the word your are going to search");
+                    	String word=sc2.nextLine();
+                    	SubMenuTasks.searchWord(word,contactBookName);
+                    	
+                    	break;
+                    case 4:
+                    	System.out.println("listing contact");
+                    	List<String> l= model.loadContactBook();
+                    	for(String h:l)
+                    	{
+                    		System.out.println(h);
+                    	}
+                    	System.out.println("enter the contactBookname to list");
+                    	contactBookName=sc2.nextLine();
+                    	SubMenuTasks.listContacts(contactBookName);
+                    	break;
 
                 }
             }

@@ -78,8 +78,8 @@ public class ContactModel {
 				String f = a[5];
 				String g = a[6];
 
-				mail = ContactUtil.convertToList(f.substring(1, f.length() - 1));
-				phNo = ContactUtil.convertToList(g.substring(1, g.length() - 1));
+				mail = ContactUtil.convertToList(f.substring(1, f.length() - 1), ",");
+				phNo = ContactUtil.convertToList(g.substring(1, g.length() - 1), ",");
 				if (a[0].equals(contactName)) {
 
 					contact = new ContactBean(a[0], a[1], a[2], a[3], a[4], mail, phNo);
@@ -130,7 +130,6 @@ public class ContactModel {
 	}
 
 	public List<String> getAllContacts(String contactBookName) {
-		System.out.println("get all contacts");
 		BufferedReader br = null;
 		List<String> result = new ArrayList<>();
 		try {
@@ -214,12 +213,12 @@ public class ContactModel {
 				}
 				if(key.equals(Constants.EMAIL))
 				{
-					List<String> l=ContactUtil.convertToList(a[5].substring(1, a[5].length() - 1));
+					List<String> l=ContactUtil.convertToList(a[5].substring(1, a[5].length() - 1), ",");
 					for(String j:l)
 						list.add(j);
 				}if(key.equals(Constants.PHONENO))
 				{
-					List<String> l=ContactUtil.convertToList(a[6].substring(1, a[6].length() - 1));
+					List<String> l=ContactUtil.convertToList(a[6].substring(1, a[6].length() - 1), ",");
 					for(String j:l)
 						list.add(j);
 				}
@@ -245,11 +244,11 @@ public class ContactModel {
 		BufferedReader br=null;
 		List<String> list=new ArrayList<String>();
 		try {
-			br=new BufferedReader(new FileReader(contactBookName+".tocalll"));
+			br=new BufferedReader(new FileReader(contactBookName+".tocall"));
 			String line;
 			while((line=br.readLine())!=null)
 			{
-				String[] a=line.split(line);
+				String[] a=line.split(":");
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 				LocalDate date=LocalDate.parse(a[4], formatter);
 				LocalDate now = LocalDate.now();
@@ -337,8 +336,8 @@ return count;
 				String f = a[5];
 				String g = a[6];
 
-				mail = ContactUtil.convertToList(f.substring(1, f.length() - 1));
-				phNo = ContactUtil.convertToList(g.substring(1, g.length() - 1));
+				mail = ContactUtil.convertToList(f.substring(1, f.length() - 1), ",");
+				phNo = ContactUtil.convertToList(g.substring(1, g.length() - 1), ",");
 				contact = new ContactBean(a[0], a[1], a[2], a[3], a[4], mail, phNo);
 				list.add(contact);
 

@@ -60,41 +60,49 @@ public class ContactsApp {
                         SubMenuTasks.allSubMenuTasks(contactBookName);
                         break;
                     case 3:
-                    	System.out.println("Searching contact");
-                    	List<String> l1= model.loadContactBook();
-                    	for(String h:l1)
-                    	{
-                    		System.out.println(h);
-                    	}
-                    	System.out.println("enter the contactBookname to list");
-                    	contactBookName=sc2.nextLine();
-                    	System.out.println("enter the word your are going to search");
-                    	String word=sc2.nextLine();
-                    	SubMenuTasks.searchWord(word,contactBookName);
-                    	
-                    	break;
+                        System.out.println("Searching contact");
+                        List<String> l1 = model.loadContactBook();
+                        for (String h : l1) {
+                            System.out.println(h);
+                        }
+                        System.out.println("enter the contactBookname to list");
+                        contactBookName = sc2.nextLine();
+                        System.out.println("enter the word your are going to search");
+                        String word = sc2.nextLine();
+                        SubMenuTasks.searchWord(word, contactBookName);
+
+                        break;
                     case 4:
-                    	System.out.println("listing contact");
-                    	List<String> l= model.loadContactBook();
-                    	for(String h:l)
-                    	{
-                    		System.out.println(h);
-                    	}
-                    	System.out.println("enter the contactBookname to list");
-                    	contactBookName=sc2.nextLine();
-                    	SubMenuTasks.listContacts(contactBookName);
-                    	break;
+                        System.out.println("listing contact");
+                        List<String> l = model.loadContactBook();
+                        for (String h : l) {
+                            System.out.println(h);
+                        }
+                        System.out.println("enter the contactBookname to list");
+                        contactBookName = sc2.nextLine();
+                        SubMenuTasks.listContacts(contactBookName);
+                        break;
                     case 5:
-                    	System.out.println("BirthDay reminders");
-                    	List<String> m=model.loadContactBook();
-                    	for(String f:m) {
-                    	System.out.println(f);}
-                    	System.out.println("enter the contactbook name to remind birthdays");
-                    	contactBookName=sc2.nextLine();
-                    	List<String> k=model.remindBirthDays(contactBookName);
-                    	for(String f:k)
-                    		System.out.println(f+" is birthday today don't forget to wish");
-                    	break;
+                        System.out.println("BirthDay reminders");
+                        List<String> m = model.loadContactBook();
+                        for (String f : m) {
+                            System.out.println(f);
+                        }
+                        System.out.println("enter the contactbook name to remind birthdays");
+                        contactBookName = sc2.nextLine();
+                        while (!model.checkContactBooknameExists(contactBookName)) {
+                            System.out.println("Contact book name does't exist");
+                            System.out.println("enter the contactbook name to remind birthdays");
+                            contactBookName = sc2.nextLine();
+                        }
+                        List<String> k = model.remindBirthDays(contactBookName);
+                        if(k==null || k.isEmpty()) {
+                            System.out.println("There is no birthday today..");
+                        } else {
+                            for (String f : k)
+                                System.out.println(f + "'s birthday falls on today. don't forget to wish him/her");
+                        }
+                        break;
 
                 }
             }

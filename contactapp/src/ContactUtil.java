@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContactUtil {
-    public static List convertToList(String s)
+    public static List convertToList(String s, String word)
     {List<String> l=new ArrayList<String >();
-        String[] a=s.split(",");
+        String[] a=s.split(word);
         for(String d:a)
         {
             l.add(d);

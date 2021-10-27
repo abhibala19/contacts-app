@@ -11,6 +11,6 @@ It provides the following features
  7. Birthday Remainder feature is also there
 
 # How to run
-1. It is advisable to run this project in any IDE (Eclipse or Intellij)
+1. It is advisible to run this project in any IDE (Eclipse or Intellij)
 2. Go to ContactApp.java file
 3. And run the project

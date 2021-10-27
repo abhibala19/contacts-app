@@ -4,9 +4,15 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -234,6 +240,38 @@ public class ContactModel {
 		}
 		return list;
 	}
+	public List<String> remindBirthDays(String contactBookName)
+	{
+		BufferedReader br=null;
+		List<String> list=new ArrayList<String>();
+		try {
+			br=new BufferedReader(new FileReader(contactBookName+".tocalll"));
+			String line;
+			while((line=br.readLine())!=null)
+			{
+				String[] a=line.split(line);
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+				LocalDate date=LocalDate.parse(a[4], formatter);
+				LocalDate now = LocalDate.now();
+				if((date.getMonthValue()==now.getMonthValue())&&(date.getDayOfMonth()==now.getDayOfMonth()))
+					list.add(a[0]);
+			}
+			return list;
+		}catch (IOException e) {
+			e.printStackTrace();
+		}finally {
+			if (br != null) {
+				try {
+					br.close();
+				} catch (Exception e) {
+					e.printStackTrace();
+					// TODO: handle exception
+				}
+			}
+		}
+		return null;
+	}
+	
 	public static int findOccurance(String line,String word)
 	{int count = 0;
 	int pos = 0;

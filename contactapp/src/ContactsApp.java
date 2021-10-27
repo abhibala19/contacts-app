@@ -84,6 +84,17 @@ public class ContactsApp {
                     	contactBookName=sc2.nextLine();
                     	SubMenuTasks.listContacts(contactBookName);
                     	break;
+                    case 5:
+                    	System.out.println("BirthDay reminders");
+                    	List<String> m=model.loadContactBook();
+                    	for(String f:m) {
+                    	System.out.println(f);}
+                    	System.out.println("enter the contactbook name to remind birthdays");
+                    	contactBookName=sc2.nextLine();
+                    	List<String> k=model.remindBirthDays(contactBookName);
+                    	for(String f:k)
+                    		System.out.println(f+" is birthday today don't forget to wish");
+                    	break;
 
                 }
             }

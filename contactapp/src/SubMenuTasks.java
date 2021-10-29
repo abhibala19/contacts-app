@@ -330,7 +330,7 @@ public class SubMenuTasks {
 		Scanner sc1 = new Scanner(System.in);
 		Scanner sc2 = new Scanner(System.in);
 		ContactModel model = new ContactModel();
-		System.out.println("total occurance in the contact book is " + model.findOccuranceOverall(word, contactBookName));
+		System.out.println("total occurance "+ word+" in the contact book is " + model.findOccuranceOverall(word, contactBookName));
 		System.out.println("the no of occurance in email is");
 		List<String> e = model.getOneAttribute(contactBookName, Constants.EMAIL);
 		Map<String, Integer> email = model.findOccuranceSpecific(word, e);
@@ -375,7 +375,19 @@ public class SubMenuTasks {
 			System.out.println(g);
 
 		}
-		System.out.println("the no occurance in contactName is");
+
+		System.out.println("the no of occurance in dob  is");
+		List<String> d = model.getOneAttribute(contactBookName, Constants.DOB);
+		Map<String, Integer> dob = model.findOccuranceSpecific(word, d);
+		Set<Entry<String, Integer>> dob1 = dob.entrySet();
+		if(dob.size()==0)
+			System.out.println("the occurance is "+0);
+		else
+		for (Entry g : dob1) {
+			System.out.println(g);
+
+		}
+		System.out.println("the no of occurance in contactName is");
 		List<String> name = model.getAllContacts(contactBookName);
 		Map<String, Integer> names = model.findOccuranceSpecific(word, name);
 		Set<Entry<String, Integer>> name1 = names.entrySet();
@@ -386,7 +398,7 @@ public class SubMenuTasks {
 			System.out.println(g);
 
 		}
-		System.out.println("the no occurance in address is");
+		System.out.println("the no of occurance in address is");
 		List<String> address = model.getOneAttribute(contactBookName, Constants.ADDRESS);
 		Map<String, Integer> addr = model.findOccuranceSpecific(word, address);
 		Set<Entry<String, Integer>> add =addr.entrySet();

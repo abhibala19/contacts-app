@@ -1,11 +1,7 @@
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class ContactsApp {
     public static void main(String[] args) throws ParseException {

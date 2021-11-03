@@ -216,6 +216,9 @@ public class ContactModel {
 					List<String> l=ContactUtil.convertToList(a[5].substring(1, a[5].length() - 1), ",");
 					for(String j:l)
 						list.add(j);
+				}if(key.equals(Constants.DOB))
+				{
+						list.add(a[4]);
 				}if(key.equals(Constants.PHONENO))
 				{
 					List<String> l=ContactUtil.convertToList(a[6].substring(1, a[6].length() - 1), ",");

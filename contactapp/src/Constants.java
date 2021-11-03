@@ -5,4 +5,5 @@ public interface Constants {
     String EMAIL="emali";
     String PHONENO="phoneNo";
     String ADDRESS="address";
+    String DOB="dob";
 }
